@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float moveSpeed = 5f;
+    public float moveSpeed = 5.0f;
     private Rigidbody2D rb;
+    float axisH = 0.0f;
 
     private void Start()
     {
@@ -14,9 +15,11 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        // キャラクターの移動
-        float horizontalInput = Input.GetAxis("Horizontal");
-        Vector2 movement = new Vector2(horizontalInput, 0);
-        rb.velocity = movement * moveSpeed;
+        axisH = Input.GetAxisRaw("Horizontal");
+    }
+
+    private void FixedUpdate()
+    {
+        rb.velocity = new Vector2(axisH * moveSpeed, rb.velocity.y);
     }
 }
